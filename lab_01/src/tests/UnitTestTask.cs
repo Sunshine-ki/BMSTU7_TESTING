@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Xunit;
-using project;
+using db;
 
 namespace tests
 {

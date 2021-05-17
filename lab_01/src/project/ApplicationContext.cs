@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace project
+namespace db
 {
 	public class ApplicationContext : DbContext
 	{

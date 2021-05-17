@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace project
+namespace db
 {
 	public interface IRepositoryUser // : IDisposable
 	{
