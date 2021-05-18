@@ -48,7 +48,7 @@ namespace tests
 			IRepositoryTask db = new PostgreSQLRepositoryTask();
 			db.Delete(id);
 
-			if (db.GetTask(id) == null)
+			if (db.GetTask(id) is null)
 				throw new Exception("Problem in delete task");
 
 		}

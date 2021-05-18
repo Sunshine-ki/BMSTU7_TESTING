@@ -6,8 +6,9 @@ namespace bl
 {
 	public class CompletedTask
 	{
-		public CompletedTask(int userId, int taskId)
+		public CompletedTask(int id, int userId, int taskId)
 		{
+			Id = id;
 			UserId = userId;
 			TaskId = taskId;
 		}

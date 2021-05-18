@@ -29,26 +29,36 @@ namespace db
 			taskDB.DetailedDescription = task.DetailedDescription;
 			taskDB.Solution = task.Solution;
 			taskDB.TableName = task.TableName;
+			taskDB.AuthorId = task.AuthorId;
 			return taskDB;
 		}
 		public db.CompletedTask ConvertCompletedTaskToBD(bl.CompletedTask completedTask)
 		{
 			db.CompletedTask completedTaskDB = new db.CompletedTask();
+			completedTaskDB.Id = completedTask.Id;
+			completedTaskDB.UserId = completedTask.UserId;
+			completedTaskDB.TaskId = completedTask.TaskId;
 			return completedTaskDB;
 		}
 
 		public bl.User ConvertUserToBL(db.User user)
 		{
+			if (user is null)
+				return null;
 			return new bl.User(user.Id, user.Name, user.Surname, user.Email, user.Login, user.Password, user.UserType);
 		}
 		public bl.Task ConvertTaskToBL(db.Task task)
 		{
+			if (task is null)
+				return null;
 			return new bl.Task(task.Id, task.Name, task.ShortDescription, task.DetailedDescription, task.Solution, task.TableName, task.AuthorId);
 		}
 
 		public bl.CompletedTask ConvertCompletedTaskToBL(db.CompletedTask completedTask)
 		{
-			return new bl.CompletedTask(completedTask.UserId, completedTask.TaskId);
+			if (completedTask is null)
+				return null;
+			return new bl.CompletedTask(completedTask.Id, completedTask.UserId, completedTask.TaskId);
 		}
 	}
 }

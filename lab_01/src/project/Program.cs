@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using bl;
 
 namespace db
 {
@@ -11,14 +13,82 @@ namespace db
 			// {  
 			// }
 
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
-			foreach (var elem in db.GetUsers())
-				Console.WriteLine($"{elem.Id} {elem.Name} {elem.Surname}");
+			IFacade conFacade = new ConFacade();
 
+			// List<bl.Task> tasks = conFacade.GetTasks();
+			// // Console.WriteLine()
+			// foreach (bl.Task elem in tasks)
+			// {
+			// 	Console.WriteLine($"{elem.Id} {elem.Name} {elem.ShortDescription}");
+			// }
+
+			// List<bl.User> users = conFacade.GetUsers();
+			// // Console.WriteLine()
+			// foreach (bl.User elem in users)
+			// {
+			// 	Console.WriteLine($"{elem.Id} {elem.Name} {elem.Surname} {elem.Email} {elem.Login} {elem.Password} {elem.UserType}");
+			// }
+
+			// List<bl.CompletedTask> completedTasks = conFacade.GetCompletedTasks();
+			// // Console.WriteLine()
+			// foreach (bl.CompletedTask elem in completedTasks)
+			// {
+			// 	Console.WriteLine($"{elem.Id}  {elem.UserId} {elem.TaskId}");
+			// }
+
+			// IRepositoryUser db = new PostgreSQLRepositoryUser();
+			// foreach (var elem in db.GetUsers())
+			// 	Console.WriteLine($"{elem.Id} {elem.Name} {elem.Surname}");
+
+			// bl.Task newTask = new bl.Task(37, "NewName", "D", "DD", "S", "TN", 4);
+			// conFacade.AddTask(newTask);
+
+			// bl.User newUser = new bl.User(37, "NewName", "NewSurname", "NewEmail", "A", "TN", 4);
+			// conFacade.AddUser(newUser);
+
+			bl.CompletedTask completedTask = new bl.CompletedTask(12, 6, 14);
+			conFacade.AddCompletedTask(completedTask);
+
+			List<bl.CompletedTask> completedTasks = conFacade.GetCompletedTasks();
+			// Console.WriteLine()
+			foreach (bl.CompletedTask elem in completedTasks)
+			{
+				Console.WriteLine($"{elem.Id}  {elem.UserId} {elem.TaskId}");
+			}
+
+			// bl.CompletedTask completedTask = conFacade.GetCompletedTask(5);
+			// Console.WriteLine($"\n{completedTask.Id}  {completedTask.UserId} {completedTask.TaskId}");
+
+			// bl.User user = conFacade.GetUser(12);
+			// Console.WriteLine($"\n{user.Id}  {user.Name} {user.Surname}");
+
+			// bl.Task task = conFacade.GetTask(441);
+			// if (task is null)
+			// 	Console.WriteLine("Нет такого");
+			// else
+			// 	Console.WriteLine($"\n{task.Id}  {task.Name} {task.ShortDescription}");
 
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // // // // // // // // // // // // // // // 
 // Всякие плюшки

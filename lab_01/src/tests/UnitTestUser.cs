@@ -65,7 +65,7 @@ namespace tests
 			IRepositoryUser db = new PostgreSQLRepositoryUser();
 			db.Delete(id);
 
-			if (db.GetUser(id) == null)
+			if (db.GetUser(id) is null)
 				throw new Exception("Problem in delete user");
 		}
 
