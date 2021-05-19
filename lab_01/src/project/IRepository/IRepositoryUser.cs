@@ -7,6 +7,8 @@ namespace db
 	{
 		List<User> GetUsers();
 		User GetUser(int id);
+		User GetUserByEmail(string email);
+		User GetUserByLogin(string login);
 		void Add(User user);
 		void Delete(int id);
 		void UpdateName(int id, string newName);

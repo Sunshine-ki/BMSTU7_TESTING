@@ -15,6 +15,7 @@ namespace bl
 		bl.CompletedTask GetCompletedTask(int id);
 		bl.Task GetTask(int id);
 		bl.User GetUser(int id);
-
+		bl.User GetUserByEmail(string email);
+		bl.User GetUserByLogin(string login);
 	}
 }

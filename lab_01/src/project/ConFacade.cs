@@ -127,5 +127,19 @@ namespace db
 			return converter.ConvertUserToBL(user);
 		}
 
+		public bl.User GetUserByEmail(string email)
+		{
+			IRepositoryUser db = new PostgreSQLRepositoryUser();
+			db.User user = db.GetUserByEmail(email);
+			return converter.ConvertUserToBL(user);
+		}
+		public bl.User GetUserByLogin(string login)
+		{
+			IRepositoryUser db = new PostgreSQLRepositoryUser();
+			db.User user = db.GetUserByLogin(login);
+			return converter.ConvertUserToBL(user);
+		}
+
+
 	}
 }

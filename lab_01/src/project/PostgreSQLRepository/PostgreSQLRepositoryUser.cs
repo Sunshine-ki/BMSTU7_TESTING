@@ -14,11 +14,24 @@ namespace db
 		}
 		public User GetUser(int id)
 		{
-			// var e = from p in db.Users
-			// 		where p.Id == id
-			// 		select p;
 			// Find - Поиск по PK.
 			return db.Users.Find(id);
+		}
+
+		public User GetUserByEmail(string email)
+		{
+			User user = (from p in db.Users
+						 where p.Email == email
+						 select p).FirstOrDefault();
+			return user;
+		}
+
+		public User GetUserByLogin(string login)
+		{
+			User user = (from p in db.Users
+						 where p.Login == login
+						 select p).FirstOrDefault();
+			return user;
 		}
 
 		public List<User> GetUsers()
