@@ -1,6 +1,24 @@
-﻿@{
-	ViewData["Title"] = "Statistics";
-}
-<h1>@ViewData["Title"]</h1>
+<table class="table table-striped table-dark container text-center">
+	<thead>
+		<tr>
+			<th scope="col">№</th>
+			<th scope="col">Name</th>
+			<th scope="col">ShortDescription</th>
+			<th scope="col">DetailedDescription</th>
+		</tr>
+	</thead>
 
-<p>Statistics.</p>
+	<tbody>
+		@foreach (var task in ViewBag.Tasks)
+		{
+	  <tr>
+	   <th scope="row"> @task.Id </th>
+	   <td> @task.Name </td>
+	   <td> @task.ShortDescription </td>
+	   <td> @task.DetailedDescription </td>
+	  </tr>
+		}
+ </tbody>
+
+
+</table>

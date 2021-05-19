@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ui.Models;
+using System.Web;
+using Microsoft.AspNetCore.Http;
 
 using bl;
 using Head;
@@ -27,16 +29,44 @@ namespace ui.Controllers
 
 		public IActionResult Index()
 		{
+			if (string.IsNullOrEmpty(HttpContext.Session.GetString("id")))
+				return Redirect("/Home/Welcome");
+			return Redirect("/Home/Tasks");
+		}
+
+		[HttpGet]
+		public IActionResult Task(int taskId)
+		{
+			ui.Models.Task task = _converter.ConvertTaskToUI(_facade.GetTask(taskId));
+			ViewBag.task = task;
+			ViewBag.info_text = "Решите задачу";
+			ViewBag.colors = "alert alert-success";
 			return View();
 		}
 
-		public IActionResult Privacy()
+		[HttpPost]
+		public IActionResult Task()
+		{
+			ViewBag.task = new ui.Models.Task();
+			ViewBag.info_text = "Задача на проверке!";
+			ViewBag.colors = "alert alert-success";
+			return View();
+		}
+
+		public IActionResult Tasks()
+		{
+			ViewBag.tasks = _facade.GetTasks();
+			return View();
+		}
+
+		public IActionResult Welcome()
 		{
 			return View();
 		}
 
 		public IActionResult Statistics()
 		{
+			ViewBag.Tasks = _facade.GetTasks();
 			return View();
 		}
 
@@ -64,10 +94,12 @@ namespace ui.Controllers
 			}
 
 			ViewBag.user = new ui.Models.User();
+			bl.User newUser = _facade.GetUserByLogin(userBL.Login);
+			HttpContext.Session.SetString("id", Convert.ToString(newUser.Id));
+
 			ViewBag.Msg = "Вы успешно зарегистрированы!";
 			ViewBag.Colors = "alert alert-success";
 			return View();
-			// return $"User: {user.Name} {user.Surname} {user.UserType} ";
 		}
 
 

@@ -1,71 +1,69 @@
 @{
-	ViewData["Title"] = "Registration";
+   ViewData["Title"] = "Registration";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Registrations</p>
-
 <form method="POST"> @* action="GetUser"> *@
-	@if (ViewBag.Msg != null)
-	{
-	 <div class="@ViewBag.Colors" role="alert"> @ViewBag.Msg </div>
-	}
+   @if (ViewBag.Msg != null)
+   {
+      <div class="@ViewBag.Colors" role="alert"> @ViewBag.Msg </div>
+   }
 
- <div class="mb-3">
-  <div class="mb-3">
-   <label class="form-label">Name</label>
-   <input type="Name" class="form-control" name="Name" value="@ViewBag.user.Name" required>
-  </div>
+   <div class="mb-3">
+      <div class="mb-3">
+         <label class="form-label">Name</label>
+         <input type="Name" class="form-control" name="Name" value="@ViewBag.user.Name" required>
+      </div>
 
-  <div class="mb-3">
-   <label class="form-label">Surname</label>
-   <input type="Name" class="form-control" name="Surname" value="@ViewBag.user.Surname" required>
-  </div>
+      <div class="mb-3">
+         <label class="form-label">Surname</label>
+         <input type="Name" class="form-control" name="Surname" value="@ViewBag.user.Surname" required>
+      </div>
 
-  <div class="mb-3">
-   <label class="form-label">Email address</label>
-   <input type="email" class="form-control" aria-describedby="emailHelp" name="Email"
-				value="@ViewBag.user.Email" required>
-   <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
+      <div class="mb-3">
+         <label class="form-label">Email address</label>
+         <input type="email" class="form-control" aria-describedby="emailHelp" name="Email" value="@ViewBag.user.Email"
+            required>
+         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      </div>
 
-  <div class="mb-3">
-   <label class="form-label">Login</label>
-   <input type="Name" class="form-control" name="Login" value="@ViewBag.user.Login" required>
-  </div>
+      <div class="mb-3">
+         <label class="form-label">Login</label>
+         <input type="Name" class="form-control" name="Login" value="@ViewBag.user.Login" required>
+      </div>
 
-  <div class="mb-3">
-   <label class="form-label">Password</label>
-   <input type="password" class="form-control" name="Password" required>
-  </div>
+      <div class="mb-3">
+         <label class="form-label">Password</label>
+         <input type="password" class="form-control" name="Password" required>
+      </div>
 
-  <div class="d-flex justify-content-center">
-   <label>Role</label>
-  </div>
+      <div class="d-flex justify-content-center">
+         <label>Role</label>
+      </div>
 
-  <div class="d-flex justify-content-center">
-   <div class="row">
-	<div class="col">
-	 <div class="form-check">
-	  <input checked="checked" class="form-check-input" id="UserType" name="UserType" type="radio"
-							value="0" required />
-	  <label class="form-check-label">
-	   Student
-	  </label>
-	 </div>
-	</div>
+      <div class="d-flex justify-content-center">
+         <div class="row">
+            <div class="col">
+               <div class="form-check">
+                  <input checked="checked" class="form-check-input" id="UserType" name="UserType" type="radio" value="0"
+                     required />
+                  <label class="form-check-label">
+                     Student
+                  </label>
+               </div>
+            </div>
 
-	<div class="col">
-	 <div class="form-check">
-	  <input id="UserType" class="form-check-input" name="UserType" type="radio" value="1" required />
-	  <label class="form-check-label">
-	   Teacher
-	  </label>
-	 </div>
-	</div>
+            <div class="col">
+               <div class="form-check">
+                  <input id="UserType" class="form-check-input" name="UserType" type="radio" value="1" required />
+                  <label class="form-check-label">
+                     Teacher
+                  </label>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
    </div>
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
- </div>
 </form>

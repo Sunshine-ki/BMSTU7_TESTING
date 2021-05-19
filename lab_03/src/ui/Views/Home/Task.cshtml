@@ -1,0 +1,29 @@
+<div class="container text-center">
+
+	<div class="container text-center">
+
+		<div class="row">
+			<div class="col">
+				<div class="@ViewBag.colors" role="alert"> @ViewBag.info_text </div>
+				<h1 class="h3 mb-3 fw-normal"> @ViewBag.task.Name </h1>
+
+				<h4> Описание задания: <br>
+					@ViewBag.Task.DetailedDescription
+				</h4> <br>
+
+				<form method="POST">
+
+					<div class="form-group">
+						<label>Поле для решения задачи</label>
+						<textarea class="form-control" name="user_solution" rows="10" required> </textarea>
+					</div>
+					<button type="submit" class="btn btn-primary mb-2 btn-block">Send</button>
+
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
