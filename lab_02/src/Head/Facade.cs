@@ -22,7 +22,7 @@ namespace Head
 			return conFacade.GetUsers();
 		}
 
-		public List<bl.Task> GetTask()
+		public List<bl.Task> GetTasks()
 		{
 			return conFacade.GetTasks();
 		}
@@ -84,6 +84,11 @@ namespace Head
 		public bl.User GetUser(int id)
 		{
 			return conFacade.GetUser(id);
+		}
+
+		public bl.User GetUserByLogin(string login)
+		{
+			return conFacade.GetUserByLogin(login);
 		}
 
 	}

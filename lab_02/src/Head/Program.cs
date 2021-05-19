@@ -29,7 +29,7 @@ namespace Head
 				Console.WriteLine($"{elem.Id} {elem.Name} {elem.Surname} {elem.Email} {elem.Login} {elem.Password} {elem.UserType}");
 			Console.WriteLine("\n");
 
-			foreach (var elem in facade.GetTask())
+			foreach (var elem in facade.GetTasks())
 				Console.WriteLine($"{elem.Id} {elem.Name} {elem.ShortDescription}");
 
 			Console.WriteLine("\n");
