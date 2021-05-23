@@ -97,6 +97,8 @@ namespace ui.Controllers
 			bl.User newUser = _facade.GetUserByLogin(userBL.Login);
 			HttpContext.Session.SetString("id", Convert.ToString(newUser.Id));
 
+			_logger.LogInformation("Пользователь зарегистрировался");
+
 			ViewBag.Msg = "Вы успешно зарегистрированы!";
 			ViewBag.Colors = "alert alert-success";
 			return View();

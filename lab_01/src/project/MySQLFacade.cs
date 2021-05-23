@@ -6,17 +6,17 @@ using bl;
 
 namespace db
 {
-	public class ConFacade : bl.IFacade
+	public class MySQLFacade : bl.IFacade
 	{
 		Converter converter;
-		public ConFacade()
+		public MySQLFacade()
 		{
 			converter = new Converter();
 		}
 
 		public List<bl.Task> GetTasks()
 		{
-			IRepositoryTask db = new PostgreSQLRepositoryTask();
+			IRepositoryTask db = new MySQLRepositoryTask();
 
 			List<db.Task> tasks = db.GetTasks();
 			List<bl.Task> result = new List<bl.Task>();
@@ -28,7 +28,7 @@ namespace db
 		}
 		public List<bl.User> GetUsers()
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
+			IRepositoryUser db = new MySQLRepositoryUser();
 
 			List<db.User> users = db.GetUsers();
 			List<bl.User> result = new List<bl.User>();
@@ -40,7 +40,7 @@ namespace db
 		}
 		public List<bl.CompletedTask> GetCompletedTasks()
 		{
-			IRepositoryCompletedTask db = new PostgreSQLRepositoryCompletedTask();
+			IRepositoryCompletedTask db = new MySQLRepositoryCompletedTask();
 
 			List<db.CompletedTask> completedTask = db.GetCompletedTasks();
 			List<bl.CompletedTask> result = new List<bl.CompletedTask>();
@@ -53,7 +53,7 @@ namespace db
 
 		public int AddTask(bl.Task task)
 		{
-			IRepositoryTask db = new PostgreSQLRepositoryTask();
+			IRepositoryTask db = new MySQLRepositoryTask();
 			db.Task taskDB = converter.ConvertTaskToBD(task);
 			taskDB.Id = 0;
 			db.Add(taskDB);
@@ -63,7 +63,7 @@ namespace db
 
 		public int AddUser(bl.User user)
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
+			IRepositoryUser db = new MySQLRepositoryUser();
 			db.User userDB = converter.ConvertUserToBD(user);
 			userDB.Id = 0;
 			db.Add(userDB);
@@ -73,7 +73,7 @@ namespace db
 
 		public int AddCompletedTask(bl.CompletedTask completedTask)
 		{
-			IRepositoryCompletedTask db = new PostgreSQLRepositoryCompletedTask();
+			IRepositoryCompletedTask db = new MySQLRepositoryCompletedTask();
 			db.CompletedTask completedTaskDB = converter.ConvertCompletedTaskToBD(completedTask);
 
 			// Проверка на то, что пользователь уже решил данную задачу.
@@ -109,34 +109,34 @@ namespace db
 
 		public bl.CompletedTask GetCompletedTask(int id)
 		{
-			IRepositoryCompletedTask db = new PostgreSQLRepositoryCompletedTask();
+			IRepositoryCompletedTask db = new MySQLRepositoryCompletedTask();
 			db.CompletedTask completedTask = db.GetCompletedTask(id);
 			return converter.ConvertCompletedTaskToBL(completedTask);
 		}
 
 		public bl.Task GetTask(int id)
 		{
-			IRepositoryTask db = new PostgreSQLRepositoryTask();
+			IRepositoryTask db = new MySQLRepositoryTask();
 			db.Task task = db.GetTask(id);
 			return converter.ConvertTaskToBL(task);
 		}
 
 		public bl.User GetUser(int id)
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
+			IRepositoryUser db = new MySQLRepositoryUser();
 			db.User user = db.GetUser(id);
 			return converter.ConvertUserToBL(user);
 		}
 
 		public bl.User GetUserByEmail(string email)
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
+			IRepositoryUser db = new MySQLRepositoryUser();
 			db.User user = db.GetUserByEmail(email);
 			return converter.ConvertUserToBL(user);
 		}
 		public bl.User GetUserByLogin(string login)
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
+			IRepositoryUser db = new MySQLRepositoryUser();
 			db.User user = db.GetUserByLogin(login);
 			return converter.ConvertUserToBL(user);
 		}

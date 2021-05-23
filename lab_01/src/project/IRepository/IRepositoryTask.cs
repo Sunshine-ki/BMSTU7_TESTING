@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace db
 {
-	// TODO: Сделать шаблонный IRepository?
 	public interface IRepositoryTask : IDisposable
 	{
 		List<Task> GetTasks();
