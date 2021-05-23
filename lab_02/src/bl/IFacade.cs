@@ -8,7 +8,6 @@ namespace bl
 		List<bl.Task> GetTasks();
 		List<bl.User> GetUsers();
 		List<bl.CompletedTask> GetCompletedTasks();
-		// TODO: void ли ошибки
 		int AddTask(bl.Task task);
 		int AddUser(bl.User user);
 		int AddCompletedTask(bl.CompletedTask completedTask);

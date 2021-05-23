@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 using bl;
 using db;
@@ -10,9 +11,24 @@ namespace Head
 	public class Facade
 	{
 		IFacade conFacade;
-		// public Facade() => conFacade = new MySQLFacade();
-		public Facade() => conFacade = new ConFacade();
+		ILogger<Head.Facade> _loggerFacade;
 
+		public Facade()
+		{
+			conFacade = new ConFacade();
+			_loggerFacade = null;
+		}
+		// public Facade(ILogger<Head.Facade> loggerFacade)
+		// {
+		// 	conFacade = new MySQLFacade();
+		// 	_loggerFacade = loggerFacade;
+		// }
+
+		public Facade(ILogger<Head.Facade> loggerFacade)
+		{
+			conFacade = new ConFacade();
+			_loggerFacade = loggerFacade;
+		}
 		public List<bl.CompletedTask> GetCompletedTasks()
 		{
 			return conFacade.GetCompletedTasks();
@@ -79,7 +95,16 @@ namespace Head
 
 		public bl.Task GetTask(int id)
 		{
-			return conFacade.GetTask(id);
+			bl.Task task = null;
+			try
+			{
+				task = conFacade.GetTask(id);
+			}
+			catch (Exception e)
+			{
+				_loggerFacade.LogError($"data: id = {id}\n{e.Message}");
+			}
+			return task;
 		}
 
 		public bl.User GetUser(int id)

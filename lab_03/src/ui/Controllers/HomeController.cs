@@ -20,11 +20,13 @@ namespace ui.Controllers
 		ui.Converter _converter;
 		private readonly ILogger<HomeController> _logger;
 
-		public HomeController(ILogger<HomeController> logger, Head.Facade facade)
+		// public HomeController(ILogger<HomeController> logger, Head.Facade facade, ILogger<Head.Facade> loggerFacade)
+		public HomeController(ILogger<HomeController> logger, ILogger<Head.Facade> loggerFacade)
 		{
 			_logger = logger;
 			_converter = new Converter();
-			_facade = facade;
+			// _facade = facade;
+			_facade = new Head.Facade(loggerFacade);
 		}
 
 		public IActionResult Index()
@@ -37,7 +39,12 @@ namespace ui.Controllers
 		[HttpGet]
 		public IActionResult Task(int taskId)
 		{
-			ui.Models.Task task = _converter.ConvertTaskToUI(_facade.GetTask(taskId));
+			bl.Task taskBL = _facade.GetTask(taskId);
+			if (taskBL is null)
+			{
+				return Redirect("/Home/Tasks");
+			}
+			ui.Models.Task task = _converter.ConvertTaskToUI(taskBL);
 			ViewBag.task = task;
 			ViewBag.info_text = "Решите задачу";
 			ViewBag.colors = "alert alert-success";

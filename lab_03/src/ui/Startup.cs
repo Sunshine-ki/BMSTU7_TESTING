@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using Head;
+
 namespace ui
 {
 	public class Startup
@@ -33,7 +35,7 @@ namespace ui
 			});
 
 			services.AddControllersWithViews();
-			services.AddTransient<Head.Facade>();
+			// services.AddTransient<Head.Facade>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

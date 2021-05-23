@@ -118,6 +118,10 @@ namespace db
 		{
 			IRepositoryTask db = new PostgreSQLRepositoryTask();
 			db.Task task = db.GetTask(id);
+			if (task is null)
+			{
+				throw new Exception("Task not found");
+			}
 			return converter.ConvertTaskToBL(task);
 		}
 
