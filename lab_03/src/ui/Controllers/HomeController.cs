@@ -33,37 +33,7 @@ namespace ui.Controllers
 		{
 			if (string.IsNullOrEmpty(HttpContext.Session.GetString("id")))
 				return Redirect("/Home/Welcome");
-			return Redirect("/Home/Tasks");
-		}
-
-		[HttpGet]
-		public IActionResult Task(int taskId)
-		{
-			bl.Task taskBL = _facade.GetTask(taskId);
-			if (taskBL is null)
-			{
-				return Redirect("/Home/Tasks");
-			}
-			ui.Models.Task task = _converter.ConvertTaskToUI(taskBL);
-			ViewBag.task = task;
-			ViewBag.info_text = "Решите задачу";
-			ViewBag.colors = "alert alert-success";
-			return View();
-		}
-
-		[HttpPost]
-		public IActionResult Task()
-		{
-			ViewBag.task = new ui.Models.Task();
-			ViewBag.info_text = "Задача на проверке!";
-			ViewBag.colors = "alert alert-success";
-			return View();
-		}
-
-		public IActionResult Tasks()
-		{
-			ViewBag.tasks = _facade.GetTasks();
-			return View();
+			return Redirect("/Tasks");
 		}
 
 		public IActionResult Welcome()
