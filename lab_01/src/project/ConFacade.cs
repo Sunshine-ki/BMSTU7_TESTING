@@ -9,16 +9,26 @@ namespace db
 	public class ConFacade : bl.IFacade
 	{
 		Converter converter;
+		IRepositoryTask dbTask = new PostgreSQLRepositoryTask();
+		IRepositoryUser dbUser = new PostgreSQLRepositoryUser();
+		IRepositoryCompletedTask dbCompletedTask = new PostgreSQLRepositoryCompletedTask();
+
+		// IRepositoryTask dbTask = new MySQLRepositoryTask();
+		// IRepositoryUser dbUser = new MySQLRepositoryUser();
+		// IRepositoryCompletedTask dbCompletedTask = new MySQLRepositoryCompletedTask();
+
+
+
 		public ConFacade()
 		{
 			converter = new Converter();
+			// IRepositoryTask dbTask = new PostgreSQLRepositoryTask();
+
 		}
 
 		public List<bl.Task> GetTasks()
 		{
-			IRepositoryTask db = new PostgreSQLRepositoryTask();
-
-			List<db.Task> tasks = db.GetTasks();
+			List<db.Task> tasks = dbTask.GetTasks();
 			List<bl.Task> result = new List<bl.Task>();
 
 			foreach (db.Task elem in tasks)
@@ -28,9 +38,7 @@ namespace db
 		}
 		public List<bl.User> GetUsers()
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
-
-			List<db.User> users = db.GetUsers();
+			List<db.User> users = dbUser.GetUsers();
 			List<bl.User> result = new List<bl.User>();
 
 			foreach (db.User elem in users)
@@ -40,9 +48,7 @@ namespace db
 		}
 		public List<bl.CompletedTask> GetCompletedTasks()
 		{
-			IRepositoryCompletedTask db = new PostgreSQLRepositoryCompletedTask();
-
-			List<db.CompletedTask> completedTask = db.GetCompletedTasks();
+			List<db.CompletedTask> completedTask = dbCompletedTask.GetCompletedTasks();
 			List<bl.CompletedTask> result = new List<bl.CompletedTask>();
 
 			foreach (db.CompletedTask elem in completedTask)
@@ -53,34 +59,32 @@ namespace db
 
 		public int AddTask(bl.Task task)
 		{
-			IRepositoryTask db = new PostgreSQLRepositoryTask();
 			db.Task taskDB = converter.ConvertTaskToBD(task);
 			taskDB.Id = 0;
-			db.Add(taskDB);
-			db.Save();
+			dbTask.Add(taskDB);
+			dbTask.Save();
 			return 0;
 		}
 
 		public int AddUser(bl.User user)
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
 			db.User userDB = converter.ConvertUserToBD(user);
 			userDB.Id = 0;
-			db.Add(userDB);
-			db.Save();
+			dbUser.Add(userDB);
+			dbUser.Save();
 			return 0;
 		}
 
 		public int AddCompletedTask(bl.CompletedTask completedTask)
 		{
-			IRepositoryCompletedTask db = new PostgreSQLRepositoryCompletedTask();
 			db.CompletedTask completedTaskDB = converter.ConvertCompletedTaskToBD(completedTask);
 
 			// Проверка на то, что пользователь уже решил данную задачу.
 			CompletedTask tmp =
-						(from p in db.GetCompletedTasks()
+						(from p in dbCompletedTask.GetCompletedTasks()
 						 where p.UserId == completedTask.UserId && p.TaskId == completedTask.TaskId
 						 select p).FirstOrDefault();
+
 			if (tmp != null)
 			{
 				Console.WriteLine("User has already solved this task");
@@ -102,22 +106,20 @@ namespace db
 			}
 
 			completedTaskDB.Id = 0;
-			db.Add(completedTaskDB);
-			db.Save();
+			dbCompletedTask.Add(completedTaskDB);
+			dbCompletedTask.Save();
 			return 0;
 		}
 
 		public bl.CompletedTask GetCompletedTask(int id)
 		{
-			IRepositoryCompletedTask db = new PostgreSQLRepositoryCompletedTask();
-			db.CompletedTask completedTask = db.GetCompletedTask(id);
+			db.CompletedTask completedTask = dbCompletedTask.GetCompletedTask(id);
 			return converter.ConvertCompletedTaskToBL(completedTask);
 		}
 
 		public bl.Task GetTask(int id)
 		{
-			IRepositoryTask db = new PostgreSQLRepositoryTask();
-			db.Task task = db.GetTask(id);
+			db.Task task = dbTask.GetTask(id);
 			if (task is null)
 			{
 				throw new Exception("Task not found");
@@ -127,24 +129,19 @@ namespace db
 
 		public bl.User GetUser(int id)
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
-			db.User user = db.GetUser(id);
+			db.User user = dbUser.GetUser(id);
 			return converter.ConvertUserToBL(user);
 		}
 
 		public bl.User GetUserByEmail(string email)
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
-			db.User user = db.GetUserByEmail(email);
+			db.User user = dbUser.GetUserByEmail(email);
 			return converter.ConvertUserToBL(user);
 		}
 		public bl.User GetUserByLogin(string login)
 		{
-			IRepositoryUser db = new PostgreSQLRepositoryUser();
-			db.User user = db.GetUserByLogin(login);
+			db.User user = dbUser.GetUserByLogin(login);
 			return converter.ConvertUserToBL(user);
 		}
-
-
 	}
 }
