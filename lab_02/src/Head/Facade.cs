@@ -13,20 +13,22 @@ namespace Head
 		IFacade conFacade;
 		ILogger<Head.Facade> _loggerFacade;
 
-		public Facade()
-		{
-			conFacade = new ConFacade();
-			_loggerFacade = null;
-		}
+		// public Facade()
+		// {
+		// 	conFacade = new ConFacade(new PostgreSQLRepositoryUser(), new PostgreSQLRepositoryTask(), new PostgreSQLRepositoryCompletedTask());
+		// 	_loggerFacade = null;
+		// }
 		// public Facade(ILogger<Head.Facade> loggerFacade)
 		// {
 		// 	conFacade = new MySQLFacade();
 		// 	_loggerFacade = loggerFacade;
 		// }
 
-		public Facade(ILogger<Head.Facade> loggerFacade)
+		public Facade(ILogger<Head.Facade> loggerFacade, bl.IFacade facadeIn)
 		{
-			conFacade = new ConFacade();
+			// conFacade = new ConFacade(new PostgreSQLRepositoryUser(), new PostgreSQLRepositoryTask(), new PostgreSQLRepositoryCompletedTask());
+			conFacade = facadeIn;
+			// conFacade = new ConFacade();
 			_loggerFacade = loggerFacade;
 		}
 		public List<bl.CompletedTask> GetCompletedTasks()

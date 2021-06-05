@@ -9,9 +9,9 @@ namespace db
 	public class ConFacade : bl.IFacade
 	{
 		Converter converter;
-		IRepositoryTask dbTask = new PostgreSQLRepositoryTask();
-		IRepositoryUser dbUser = new PostgreSQLRepositoryUser();
-		IRepositoryCompletedTask dbCompletedTask = new PostgreSQLRepositoryCompletedTask();
+		IRepositoryTask dbTask; // = new PostgreSQLRepositoryTask();
+		IRepositoryUser dbUser; // = new PostgreSQLRepositoryUser();
+		IRepositoryCompletedTask dbCompletedTask;// = new PostgreSQLRepositoryCompletedTask();
 
 		// IRepositoryTask dbTask = new MySQLRepositoryTask();
 		// IRepositoryUser dbUser = new MySQLRepositoryUser();
@@ -19,8 +19,11 @@ namespace db
 
 
 
-		public ConFacade()
+		public ConFacade(IRepositoryUser dbUserIn, IRepositoryTask dbTaskIn, IRepositoryCompletedTask dbCompletedTaskIn)
 		{
+			dbUser = dbUserIn;
+			dbTask = dbTaskIn;
+			dbCompletedTask = dbCompletedTaskIn;
 			converter = new Converter();
 			// IRepositoryTask dbTask = new PostgreSQLRepositoryTask();
 

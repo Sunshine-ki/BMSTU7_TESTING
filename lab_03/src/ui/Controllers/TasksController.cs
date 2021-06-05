@@ -20,11 +20,13 @@ namespace ui.Controllers
 		ui.Converter _converter;
 		private readonly ILogger<HomeController> _logger;
 
-		public TasksController(ILogger<HomeController> logger, ILogger<Head.Facade> loggerFacade)
+		// public TasksController(ILogger<HomeController> logger, ILogger<Head.Facade> loggerFacade)
+		public TasksController(ILogger<HomeController> logger, Head.Facade facade)
 		{
 			_logger = logger;
 			_converter = new Converter();
-			_facade = new Head.Facade(loggerFacade);
+			// _facade = new Head.Facade(loggerFacade);
+			_facade = facade;
 		}
 
 		[ActionName("Index")]

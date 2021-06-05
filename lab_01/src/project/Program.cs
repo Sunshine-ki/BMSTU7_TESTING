@@ -13,7 +13,7 @@ namespace db
 			// {  
 			// }
 
-			IFacade conFacade = new ConFacade();
+			// IFacade conFacade = new ConFacade();
 
 			// List<bl.Task> tasks = conFacade.GetTasks();
 			// // Console.WriteLine()
@@ -46,15 +46,15 @@ namespace db
 			// bl.User newUser = new bl.User(37, "NewName", "NewSurname", "NewEmail", "A", "TN", 4);
 			// conFacade.AddUser(newUser);
 
-			bl.CompletedTask completedTask = new bl.CompletedTask(12, 6, 14);
-			conFacade.AddCompletedTask(completedTask);
+			// bl.CompletedTask completedTask = new bl.CompletedTask(12, 6, 14);
+			// conFacade.AddCompletedTask(completedTask);
 
-			List<bl.CompletedTask> completedTasks = conFacade.GetCompletedTasks();
-			// Console.WriteLine()
-			foreach (bl.CompletedTask elem in completedTasks)
-			{
-				Console.WriteLine($"{elem.Id}  {elem.UserId} {elem.TaskId}");
-			}
+			// List<bl.CompletedTask> completedTasks = conFacade.GetCompletedTasks();
+			// // Console.WriteLine()
+			// foreach (bl.CompletedTask elem in completedTasks)
+			// {
+			// 	Console.WriteLine($"{elem.Id}  {elem.UserId} {elem.TaskId}");
+			// }
 
 			// bl.CompletedTask completedTask = conFacade.GetCompletedTask(5);
 			// Console.WriteLine($"\n{completedTask.Id}  {completedTask.UserId} {completedTask.TaskId}");
