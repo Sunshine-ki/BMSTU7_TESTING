@@ -40,7 +40,7 @@ namespace Head
 				return false;
 			for (int i = 0; i < rowUser.Count; i++)
 			{
-				Console.WriteLine($"Compare = {rowUser[i]} {rowTeacher[i]} {Object.Equals(rowTeacher[i], rowUser[i])}");
+				// Console.WriteLine($"Compare = {rowUser[i]} {rowTeacher[i]} {Object.Equals(rowTeacher[i], rowUser[i])}");
 				if (!Object.Equals(rowTeacher[i], rowUser[i]))
 					return false;
 			}
@@ -48,31 +48,37 @@ namespace Head
 			return true;
 		}
 
-		public static bool CompareResults(List<ArrayList> userResult, List<ArrayList> teacherResult)
+		public static string CompareResults(List<ArrayList> userResult, List<ArrayList> teacherResult)
 		{
 			if (userResult is null || teacherResult is null)
 			{
-				return false;
+				return "Нет решения";
 			}
 
-			Console.WriteLine($"Columns count:  {userResult[0].Count} {teacherResult[0].Count}");
+			// Console.WriteLine($"Columns count:  {userResult[0].Count} {teacherResult[0].Count}");
 
 			// Compare rows count
 			if (userResult.Count != teacherResult.Count)
-				return false;
+			{
+				return $"Количество строк не совпадает. Нужное кол-во строк = {teacherResult.Count}. В вашем решении кол-во строк = {userResult.Count}";
+			}
 
 			// Compare columns count
 			if (userResult[0].Count != teacherResult[0].Count)
-				return false;
+			{
+				return $"Количество столбцов не совпадает. Нужное кол-во столбцов = {teacherResult[0].Count}. В вашем решении кол-во столбцов = {userResult[0].Count}";
+			}
 
 			int rowCount = userResult.Count;
 			for (int i = 0; i < rowCount; i++)
 			{
 				if (!CompareRows(userResult[i], teacherResult[i]))
-					return false;
+				{
+					return "Решения отличаются на {i} строке";
+				}
 			}
 
-			return true;
+			return String.Empty;
 		}
 	}
 }

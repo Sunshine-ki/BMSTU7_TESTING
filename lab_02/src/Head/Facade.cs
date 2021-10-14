@@ -160,11 +160,8 @@ namespace Head
 
 			con.Close();
 
-			return String.Empty;
+			return Task.CompareResults(userResult, teacherResult);
 		}
 
 	}
 }
-
-// insert into "Tasks" ("Name", "ShortDescription", "Solution", "TableName", "DetailedDescription", "AuthorId") 
-// values ('Все строки', 'Найти все строки', 'select * from test', 'test', 'Из таблицы test найти все строки', 4);
