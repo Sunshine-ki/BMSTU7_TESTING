@@ -15,7 +15,8 @@
 
 					<div class="form-group">
 						<label>Поле для решения задачи</label>
-						<textarea class="form-control" name="user_solution" rows="10" required> </textarea>
+						<textarea class="form-control" name="userSolution" rows="10" required> </textarea>
+						<input type="hidden" value="@ViewBag.task.Id" name="taskId" />
 					</div>
 					<button type="submit" class="btn btn-primary mb-2 btn-block">Send</button>
 

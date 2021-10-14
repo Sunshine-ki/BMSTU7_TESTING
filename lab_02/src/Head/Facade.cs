@@ -1,7 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 
 using bl;
 using db;
@@ -119,5 +121,50 @@ namespace Head
 			return conFacade.GetUserByLogin(login);
 		}
 
+		public string CompareSolution(string sqlUser, int taskId)
+		{
+			string connectionsString = "Host=localhost;Port=5432;Database=coursework_db_exec;Username=lis;Password=password";
+
+			var con = new NpgsqlConnection(connectionsString);
+			con.Open();
+
+			bl.Task teacherTask = GetTask(taskId);
+			string sqlTeacher = teacherTask.Solution;
+
+			Console.WriteLine($"sqlTeacher = {sqlTeacher}");
+			Console.WriteLine($"sqlUser = {sqlUser}");
+
+			List<ArrayList> userResult = null;
+			List<ArrayList> teacherResult = null;
+			try 
+			{
+				userResult = Task.ExecTask(sqlUser, con);
+			}
+			catch (Exception e)
+			{
+				_loggerFacade.LogError(e.Message);
+				con.Close();
+				return e.Message;
+			}
+
+			try 
+			{
+				teacherResult = Task.ExecTask(sqlTeacher, con);
+			}
+			catch (Exception e)
+			{
+				_loggerFacade.LogError(e.Message);
+				con.Close();
+				return e.Message;
+			}
+
+			con.Close();
+
+			return String.Empty;
+		}
+
 	}
 }
+
+// insert into "Tasks" ("Name", "ShortDescription", "Solution", "TableName", "DetailedDescription", "AuthorId") 
+// values ('Все строки', 'Найти все строки', 'select * from test', 'test', 'Из таблицы test найти все строки', 4);

@@ -55,11 +55,32 @@ namespace ui.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Task()
+		public IActionResult Task(string userSolution, int taskId)
 		{
-			ViewBag.task = new ui.Models.Task();
-			ViewBag.info_text = "Задача на проверке!";
-			ViewBag.colors = "alert alert-success";
+			Console.WriteLine($"user_solution = {userSolution} TaskId = {taskId}");
+			
+			bl.Task taskBL = _facade.GetTask(taskId);
+			if (taskBL is null)
+			{
+				return Redirect("/Tasks");
+			}
+
+			ui.Models.Task task = _converter.ConvertTaskToUI(taskBL);
+			ViewBag.task = task;
+
+			string result = _facade.CompareSolution(userSolution, taskId); 
+			
+			if (String.IsNullOrEmpty(result))
+			{
+				ViewBag.info_text = "Задача решена!";
+				ViewBag.colors = "alert alert-success";
+			}
+			else 
+			{
+				ViewBag.info_text = result;
+				ViewBag.colors = "alert alert-danger";
+			}
+
 			return View();
 		}
 	}
