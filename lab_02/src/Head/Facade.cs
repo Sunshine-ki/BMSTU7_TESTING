@@ -25,6 +25,7 @@ namespace Head
 		// 	conFacade = new MySQLFacade();
 		// 	_loggerFacade = loggerFacade;
 		// }
+		private readonly string _connectionString = "Host=localhost;Port=5432;Database=coursework_db_exec;Username=lis;Password=password";
 
 		public Facade(ILogger<Head.Facade> loggerFacade, bl.IFacade facadeIn)
 		{
@@ -33,6 +34,8 @@ namespace Head
 			// conFacade = new ConFacade();
 			_loggerFacade = loggerFacade;
 		}
+
+
 		public List<bl.CompletedTask> GetCompletedTasks()
 		{
 			return conFacade.GetCompletedTasks();
@@ -69,11 +72,15 @@ namespace Head
 		{
 			bl.User userOld = conFacade.GetUserByEmail(user.Email);
 			if (userOld != null)
+			{
 				return new Head.Answer((int)Constants.Errors.EmailUserExists, "Данный email занят");
+			}
 
 			userOld = conFacade.GetUserByLogin(user.Login);
 			if (userOld != null)
+			{
 				return new Head.Answer((int)Constants.Errors.LoginUserExists, "Данный логин занят");
+			}
 
 
 			Head.Answer checkPassword = CheckPassword(user.Password);
@@ -121,30 +128,28 @@ namespace Head
 			return conFacade.GetUserByLogin(login);
 		}
 
-		public string CompareSolution(string sqlUser, int taskId)
-		{
-			string connectionsString = "Host=localhost;Port=5432;Database=coursework_db_exec;Username=lis;Password=password";
 
-			var con = new NpgsqlConnection(connectionsString);
-			con.Open();
+		public Head.Answer CompareSolution(string sqlUser, int taskId)
+		{
+			var con = new NpgsqlConnection(_connectionString);
 
 			bl.Task teacherTask = GetTask(taskId);
+			
 			string sqlTeacher = teacherTask.Solution;
-
-			Console.WriteLine($"sqlTeacher = {sqlTeacher}");
-			Console.WriteLine($"sqlUser = {sqlUser}");
 
 			List<ArrayList> userResult = null;
 			List<ArrayList> teacherResult = null;
+
+			con.Open();
+			
 			try 
 			{
 				userResult = Task.ExecTask(sqlUser, con);
 			}
 			catch (Exception e)
 			{
-				_loggerFacade.LogError(e.Message);
 				con.Close();
-				return e.Message;
+				return new Head.Answer((int)Constants.Errors.UserExecTask,e.Message);
 			}
 
 			try 
@@ -153,9 +158,8 @@ namespace Head
 			}
 			catch (Exception e)
 			{
-				_loggerFacade.LogError(e.Message);
 				con.Close();
-				return e.Message;
+				return new Head.Answer((int)Constants.Errors.TeachExecTask,e.Message);
 			}
 
 			con.Close();

@@ -7,6 +7,7 @@ namespace bl
 {
 	public class User
 	{
+		public User() { }
 		public User(int id, string name, string surname, string email, string login, string password, int userType)
 		{
 			Id = id;

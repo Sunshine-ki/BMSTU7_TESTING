@@ -6,6 +6,10 @@ namespace bl
 {
 	public class Task
 	{
+		public Task()
+		{
+			
+		}
 		public Task(int id, string name, string shortDescription, string detailedDescription, string solution, string tableName, int authorId)
 		{
 			Id = id;

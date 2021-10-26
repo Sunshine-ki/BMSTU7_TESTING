@@ -68,16 +68,16 @@ namespace ui.Controllers
 			ui.Models.Task task = _converter.ConvertTaskToUI(taskBL);
 			ViewBag.task = task;
 
-			string result = _facade.CompareSolution(userSolution, taskId); 
+			var result = _facade.CompareSolution(userSolution, taskId); 
 			
-			if (String.IsNullOrEmpty(result))
+			if (result.returnValue == Head.Constants.OK)
 			{
 				ViewBag.info_text = "Задача решена!";
 				ViewBag.colors = "alert alert-success";
 			}
 			else 
 			{
-				ViewBag.info_text = result;
+				ViewBag.info_text = result.Msg;
 				ViewBag.colors = "alert alert-danger";
 			}
 
