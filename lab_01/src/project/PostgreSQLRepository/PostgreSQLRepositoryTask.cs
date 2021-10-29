@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace db
 {
@@ -10,7 +11,14 @@ namespace db
 
 		public PostgreSQLRepositoryTask()
 		{
-			this.db = new ApplicationContext();
+			DbContextOptionsBuilder options = new DbContextOptionsBuilder();
+			options.UseNpgsql("Host=localhost;Port=5432;Database=coursework_db;Username=lis;Password=password");
+			this.db = new ApplicationContext(options.Options);
+		}
+
+		public PostgreSQLRepositoryTask(ApplicationContext db)
+		{
+			this.db = db;
 		}
 
 		public List<Task> GetTasks()

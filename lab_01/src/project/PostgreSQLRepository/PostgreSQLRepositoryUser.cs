@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace db
 {
@@ -10,8 +11,17 @@ namespace db
 
 		public PostgreSQLRepositoryUser()
 		{
-			this.db = new ApplicationContext();
+			DbContextOptionsBuilder options = new DbContextOptionsBuilder();
+			options.UseNpgsql("Host=localhost;Port=5432;Database=coursework_db;Username=lis;Password=password");
+			this.db = new ApplicationContext(options.Options);
 		}
+
+		public PostgreSQLRepositoryUser(ApplicationContext db)
+		{
+			this.db = db;
+		}
+
+
 		public User GetUser(int id)
 		{
 			// Find - Поиск по PK.

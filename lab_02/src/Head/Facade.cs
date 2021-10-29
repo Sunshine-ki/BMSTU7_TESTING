@@ -113,7 +113,7 @@ namespace Head
 			}
 			catch (Exception e)
 			{
-				_loggerFacade.LogError($"data: id = {id}\n{e.Message}");
+				// _loggerFacade.LogError($"data: id = {id}\n{e.Message}");
 			}
 			return task;
 		}
@@ -134,7 +134,12 @@ namespace Head
 			var con = new NpgsqlConnection(_connectionString);
 
 			bl.Task teacherTask = GetTask(taskId);
-			
+			if (teacherTask == null)
+			{
+				return new Head.Answer(Constants.getNumberValue(Constants.Errors.NotExist));
+			}
+
+
 			string sqlTeacher = teacherTask.Solution;
 
 			List<ArrayList> userResult = null;

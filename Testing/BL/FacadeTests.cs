@@ -8,11 +8,6 @@ using db;
 
 using Testing.Builders;
 
-// TODO: Constants.Errors.RowsDoesNotMatch -> приведение типов убрать. Ok
-// TODO: параметризованные тесты. Ok
-// + добавить классический тест. Ok. SimpleTests
-// У меня лондонские 
-
 namespace Testing.BL
 {
     public class FacadeTests

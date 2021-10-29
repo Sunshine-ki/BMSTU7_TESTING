@@ -17,11 +17,21 @@ namespace db
 		// 	// Если БД не создана, то создаем.
 		// 	Database.EnsureCreated();
 		// }
+		// public ApplicationContext(DbContextOptionsBuilder optionsBuilder) : base(optionsBuilder.Options) 
+		// {
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		// }
+
+
+		public ApplicationContext(DbContextOptions options) : base(options)
 		{
-			optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=coursework_db;Username=lis;Password=password");
+
 		}
+
+		// protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		// {
+		// 	optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=coursework_db;Username=lis;Password=password");
+		// }
 
 		// // Значение по умолчанию.
 		// protected override void OnModelCreating(ModelBuilder modelBuilder)
