@@ -39,8 +39,8 @@ namespace ui.Controllers
 		[HttpGet]
 		public IActionResult Task(int taskId)
 		{
-			if (string.IsNullOrEmpty(HttpContext.Session.GetString("id")))
-				return Redirect("/Home/Registration");
+			// if (string.IsNullOrEmpty(HttpContext.Session.GetString("id")))
+			// 	return Redirect("/Home/Registration");
 
 			bl.Task taskBL = _facade.GetTask(taskId);
 			if (taskBL is null)
