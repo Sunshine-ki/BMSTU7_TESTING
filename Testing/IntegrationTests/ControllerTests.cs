@@ -57,24 +57,3 @@ namespace Testing.IntegrationTests
 		}
     }
 }
-
-
-// IT IS BAD. USE .UseInMemoryDatabase
-// [Theory]
-// [MemberData(nameof(DataForCompareSolutionTests))]
-// public void CompareSolutionTests(string userSolution, string teacherSolution, int res)
-// {
-// 	int taskId = 57; 
-// 	IRepositoryCompletedTask repositoryCompletedTask = new PostgreSQLRepositoryCompletedTask(); 
-// 	IRepositoryUser repositoryCompletedUser = new PostgreSQLRepositoryUser(); 
-// 	var mockOnTasksDbSet = new Mock<DbSet<db.Task>>();
-//     mockOnTasksDbSet.Setup(facade => facade.Find(taskId)).Returns(new db.Task() {Solution = teacherSolution});
-// 	ApplicationContext appCtx = new ApplicationContext() {Tasks = mockOnTasksDbSet.Object };
-// 	IRepositoryTask repositoryTask = new PostgreSQLRepositoryTask(appCtx); 
-// 	bl.IFacade conFacadeBD = new db.ConFacade(repositoryCompletedUser, repositoryTask, repositoryCompletedTask);  
-//     var facade = new Head.Facade(null, conFacadeBD);
-
-// 	var result =  facade.CompareSolution(userSolution, taskId);
-
-// 	Assert.Equal(res, result.returnValue);
-// }
