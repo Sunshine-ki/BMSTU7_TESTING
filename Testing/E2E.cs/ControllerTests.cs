@@ -63,34 +63,34 @@ namespace Testing.E2E
 			tasksController.Tasks();
 			Assert.Equal(0, tasksController.ViewBag.code);
 
-			// Act-Assert (Bad solution)
-			foreach (var badSolution in badSolutions)
-			{
-				tasksController.Task(badSolution, taskId);
-				Assert.Equal(-1, tasksController.ViewBag.code);
-			}
+			// // Act-Assert (Bad solution)
+			// foreach (var badSolution in badSolutions)
+			// {
+			// 	tasksController.Task(badSolution, taskId);
+			// 	Assert.Equal(-1, tasksController.ViewBag.code);
+			// }
 
-			// Act-Assert (Good solution)
-			tasksController.Task(goodSolution, taskId);
-			Assert.Equal(0, tasksController.ViewBag.code);
+			// // Act-Assert (Good solution)
+			// tasksController.Task(goodSolution, taskId);
+			// Assert.Equal(0, tasksController.ViewBag.code);
 
-			// Act-Assert (See all tasks again)
-			tasksController.Tasks();
-			Assert.Equal(0, tasksController.ViewBag.code);
+			// // Act-Assert (See all tasks again)
+			// tasksController.Tasks();
+			// Assert.Equal(0, tasksController.ViewBag.code);
 
-			// Act-Assert (Good solution)
-			tasksController.Task(goodSecondSolution, secondTaskId);
-			Assert.Equal(0, tasksController.ViewBag.code);
+			// // Act-Assert (Good solution)
+			// tasksController.Task(goodSecondSolution, secondTaskId);
+			// Assert.Equal(0, tasksController.ViewBag.code);
 		}
 
 		[Theory]
 		[InlineData(100)]
 		public void UserSolvesTasksTestManyTimes(int count)
 		{
-			for (int i = 0; i < count; i++)
-			{
+			// for (int i = 0; i < count; i++)
+			// {
 				UserSolvesTasksTest();
-			}
+			// }
 		}
 
 		~ControllerTests()
