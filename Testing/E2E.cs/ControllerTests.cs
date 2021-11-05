@@ -89,10 +89,10 @@ namespace Testing.E2E
 		[InlineData(100)]
 		public void UserSolvesTasksTestManyTimes(int count)
 		{
-			// for (int i = 0; i < count; i++)
-			// {
+			for (int i = 0; i < count; i++)
+			{
 				UserSolvesTasksTest();
-			// }
+			}
 		}
 
 		~ControllerTests()
