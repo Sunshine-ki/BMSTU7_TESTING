@@ -11,12 +11,14 @@ using Microsoft.AspNetCore.Mvc;
 using Testing.Builders;
 using System.Linq;
 
-using ui.Controllers;
+using Testing.Helpers;
 
 namespace Testing.E2E
 {
     public class ControllerTests
     {
+		private int ok = 0;
+		private int error = -1;
 		private DbContextOptions<ApplicationContext> options;
 		private ApplicationContext context;
 		int taskId = 57; 
@@ -44,7 +46,7 @@ namespace Testing.E2E
 			IRepositoryTask repositoryTask = new PostgreSQLRepositoryTask(context); 
 			bl.IFacade conFacadeBD = new db.ConFacade(repositoryCompletedUser, repositoryTask, repositoryCompletedTask);  
 			var facade = new Head.Facade(null, conFacadeBD);
-			TasksController tasksController = new TasksController(null, facade); 
+			TasksControllerUI tasksController = new TasksControllerUI(facade); 
 			var goodSolution = teacherSolution;
 			var goodSecondSolution = secondTeacherSolution;
 			var badSolutions = new string[] {"How it works?", 
@@ -60,27 +62,27 @@ namespace Testing.E2E
 
 
 			// Act-Assert (See all tasks)
-			tasksController.Tasks();
-			Assert.Equal(0, tasksController.ViewBag.code);
+			var res = tasksController.Tasks();
+			Assert.Equal(ok, res);
 
-			// // Act-Assert (Bad solution)
-			// foreach (var badSolution in badSolutions)
-			// {
-			// 	tasksController.Task(badSolution, taskId);
-			// 	Assert.Equal(-1, tasksController.ViewBag.code);
-			// }
+			// Act-Assert (Bad solution)
+			foreach (var badSolution in badSolutions)
+			{
+				res = tasksController.Task(badSolution, taskId);
+				Assert.Equal(error, res);
+			}
 
-			// // Act-Assert (Good solution)
-			// tasksController.Task(goodSolution, taskId);
-			// Assert.Equal(0, tasksController.ViewBag.code);
+			// Act-Assert (Good solution)
+			res = tasksController.Task(goodSolution, taskId);
+			Assert.Equal(ok, res);
 
-			// // Act-Assert (See all tasks again)
-			// tasksController.Tasks();
-			// Assert.Equal(0, tasksController.ViewBag.code);
+			// Act-Assert (See all tasks again)
+			res = tasksController.Tasks();
+			Assert.Equal(ok, res);
 
-			// // Act-Assert (Good solution)
-			// tasksController.Task(goodSecondSolution, secondTaskId);
-			// Assert.Equal(0, tasksController.ViewBag.code);
+			// Act-Assert (Good solution)
+			res = tasksController.Task(goodSecondSolution, secondTaskId);
+			Assert.Equal(ok, res);
 		}
 
 		[Theory]
