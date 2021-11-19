@@ -12,6 +12,10 @@ using Testing.Builders;
 using System.Linq;
 
 using Testing.Helpers;
+using ui.Controllers;
+using System.Text.Json;
+using ui.dto;
+using ui.Helpers;
 
 namespace Testing.E2E
 {
@@ -37,7 +41,7 @@ namespace Testing.E2E
 			context.Tasks.Add(new db.Task() {Id = secondTaskId, Solution = secondTeacherSolution});
 		}
 
-
+		// Переписать на json. Ok. 
 		public void UserSolvesTasksTest()
 		{
 			// Arrange
@@ -46,7 +50,7 @@ namespace Testing.E2E
 			IRepositoryTask repositoryTask = new PostgreSQLRepositoryTask(context); 
 			bl.IFacade conFacadeBD = new db.ConFacade(repositoryCompletedUser, repositoryTask, repositoryCompletedTask);  
 			var facade = new Head.Facade(null, conFacadeBD);
-			TasksControllerUI tasksController = new TasksControllerUI(facade); 
+			TasksController tasksController = new TasksController(null, facade); 
 			var goodSolution = teacherSolution;
 			var goodSecondSolution = secondTeacherSolution;
 			var badSolutions = new string[] {"How it works?", 
@@ -60,29 +64,34 @@ namespace Testing.E2E
 											 "select * from test where test.a + test.b = what?"
 											 };
 
-
 			// Act-Assert (See all tasks)
-			var res = tasksController.Tasks();
-			Assert.Equal(ok, res);
+			string resJson = tasksController.Tasks();
+			List<bl.Task> resultTask = (List<bl.Task>) JsonSerializer.Deserialize(resJson, typeof(List<bl.Task>), Options.JsonOptions());
+			Assert.NotNull(resultTask);
 
 			// Act-Assert (Bad solution)
+			ResultDTO result;
 			foreach (var badSolution in badSolutions)
 			{
-				res = tasksController.Task(badSolution, taskId);
-				Assert.Equal(error, res);
+				resJson = tasksController.Task(badSolution, taskId);
+				result = (ResultDTO) JsonSerializer.Deserialize(resJson, typeof(ResultDTO), Options.JsonOptions());
+				Assert.Equal(error, result.Code);
 			}
 
 			// Act-Assert (Good solution)
-			res = tasksController.Task(goodSolution, taskId);
-			Assert.Equal(ok, res);
+			resJson = tasksController.Task(goodSolution, taskId);
+			result = (ResultDTO) JsonSerializer.Deserialize(resJson, typeof(ResultDTO), Options.JsonOptions());
+			Assert.Equal(ok, result.Code);
 
 			// Act-Assert (See all tasks again)
-			res = tasksController.Tasks();
-			Assert.Equal(ok, res);
+			resJson = tasksController.Tasks();
+			resultTask = (List<bl.Task>) JsonSerializer.Deserialize(resJson, typeof(List<bl.Task>), Options.JsonOptions());
+			Assert.NotNull(resultTask);
 
 			// Act-Assert (Good solution)
-			res = tasksController.Task(goodSecondSolution, secondTaskId);
-			Assert.Equal(ok, res);
+			resJson = tasksController.Task(goodSecondSolution, secondTaskId);
+			result = (ResultDTO) JsonSerializer.Deserialize(resJson, typeof(ResultDTO), Options.JsonOptions());
+			Assert.Equal(ok, result.Code);
 		}
 
 		[Theory]
