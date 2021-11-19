@@ -95,60 +95,6 @@ namespace Testing.IntegrationTests
 							  (int)Constants.Errors.EmailUserExists},
             };
 
-
-
-		// [Fact]
-		// public void AddUserWithExistsLoginTest()
-		// {
-		// 	var login = "someLogin";
-		// 	var user1 = new Builders.UserBLBuilder().WithEmail("someemail@mail.com").WithLogin(login).WithPassword("123qwe").Build();
-		// 	var user2 = new Builders.UserBLBuilder().WithEmail("qwerty@mail.com").WithLogin(login).WithPassword("123qwe").Build();
-		// 	var repositoryUser = new PostgreSQLRepositoryUser(context); 
-		// 	var repositoryTask = new PostgreSQLRepositoryTask(context); 
-		// 	var repositoryCompletedTask = new PostgreSQLRepositoryCompletedTask(context); 
-		// 	bl.IFacade conFacadeBD = new db.ConFacade(repositoryUser, repositoryTask, repositoryCompletedTask);  
-		// 	var facade = new Head.Facade(null, conFacadeBD);
-			
-		// 	bl.User u = facade.GetUserByLogin(login);
-		// 	Assert.Null(u);
-
-		// 	Head.Answer resFromFacade = facade.AddUser(user1);
-		// 	Assert.Equal(resFromFacade.returnValue, Constants.OK);
-
-		// 	u = facade.GetUserByLogin(login);
-		// 	Assert.NotNull(u);
-
-		// 	resFromFacade = facade.AddUser(user2);
-		// 	Assert.Equal(resFromFacade.returnValue, ((int)Constants.Errors.LoginUserExists));
-		// }
-
-
-
-		// [Theory]
-        // [MemberData(nameof(DataForRegistrationTests))]
-		// public void RegistrationTests(bl.User user, Head.Answer res)
-		// {
-		// 	var repositoryUser = new PostgreSQLRepositoryUser(context); 
-		// 	var repositoryTask = new PostgreSQLRepositoryTask(context); 
-		// 	var repositoryCompletedTask = new PostgreSQLRepositoryCompletedTask(context); 
-		// 	bl.IFacade conFacadeBD = new db.ConFacade(repositoryUser, repositoryTask, repositoryCompletedTask);  
-		// 	var facade = new Head.Facade(null, conFacadeBD);
-
-		// 	var resFromFacade = facade.AddUser(user);
-
-		// 	Assert.Equal(resFromFacade.returnValue, res.returnValue);
-		// }
-
-		// public static IEnumerable<object[]> DataForRegistrationTests =>
-        //     new List<object[]>
-        //     {
-		// 		new object[] { new bl.User() {Email="someemail@mail.com", Login="someLogin", Password = "123qwe1"}, new Head.Answer(Constants.OK)},
-		// 		new object[] { new bl.User() {Email="someemail@mail.com", Login="someLogin", Password = "123qwe"}, new Head.Answer(Constants.OK)},
-		// 		new object[] { new bl.User() {Email="someemail@mail.com", Login="someLogin2", Password = "123qwe2"}, new Head.Answer(Constants.OK)},
-		// 		new object[] { new bl.User() {Email="someemail@mail1.com", Login="someLogin1", Password = "123qwe23"}, new Head.Answer(Constants.OK)},
-		// 		// new object[] { new bl.User() {Email="someemail@mail.com", Login="someLogin", Password = "123qwe"}, new Head.Answer((int)Constants.Errors.EmailUserExists)},
-        //     };
-
 		
 		~ControllerTests()
 		{
