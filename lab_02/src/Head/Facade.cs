@@ -70,6 +70,7 @@ namespace Head
 
 		public Head.Answer AddUser(bl.User user)
 		{
+			Console.WriteLine($"AddUser user = {user.Email} {user.Login} {user.Password}");
 			bl.User userOld = conFacade.GetUserByEmail(user.Email);
 			if (userOld != null)
 			{

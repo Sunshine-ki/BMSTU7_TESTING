@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Http;
 
 using bl;
 using Head;
+using System.Text.Json;
+using ui.Helpers;
+using ui.dto;
 
 namespace ui.Controllers
 {
@@ -30,7 +33,7 @@ namespace ui.Controllers
 		}
 
 		[ActionName("Index")]
-		public IActionResult Tasks()
+		public IActionResult TasksOld()
 		{
 			ViewBag.tasks = _facade.GetTasks();
 			return View();
@@ -54,34 +57,39 @@ namespace ui.Controllers
 			return View();
 		}
 
-		[HttpPost]
-		public IActionResult Task(string userSolution, int taskId)
+		[HttpGet]
+		public string Tasks()
 		{
-			Console.WriteLine($"user_solution = {userSolution} TaskId = {taskId}");
-			
+			var tasks = _facade.GetTasks();
+			var resJson = JsonSerializer.Serialize(tasks, Options.JsonOptions());
+			return resJson;
+		}
+
+		[HttpPost]
+		public string Task(string userSolution, int taskId)
+		{
+			string resJson;
+
 			bl.Task taskBL = _facade.GetTask(taskId);
 			if (taskBL is null)
 			{
-				return Redirect("/Tasks");
+				resJson = JsonSerializer.Serialize(new ResultDTO() {Title = "task is not exists", Code = -1}, Options.JsonOptions());
+				return resJson;
 			}
 
 			ui.Models.Task task = _converter.ConvertTaskToUI(taskBL);
-			ViewBag.task = task;
 
 			var result = _facade.CompareSolution(userSolution, taskId); 
 			
 			if (result.returnValue == Head.Constants.OK)
 			{
-				ViewBag.info_text = "Задача решена!";
-				ViewBag.colors = "alert alert-success";
-			}
-			else 
-			{
-				ViewBag.info_text = result.Msg;
-				ViewBag.colors = "alert alert-danger";
+				resJson = JsonSerializer.Serialize(new ResultDTO() {Title = "The problem is solved!", Code = 0}, Options.JsonOptions());
+				return resJson;
+
 			}
 
-			return View();
+			resJson = JsonSerializer.Serialize(new ResultDTO() {Title = result.Msg, Code = -1}, Options.JsonOptions());
+			return resJson;
 		}
 	}
 }
